@@ -101,6 +101,19 @@
             font-size:13px;
             margin-bottom:0;
         }
+
+        #carouselExampleCaptions {
+            height: 300px;
+            width: 500px
+        }
+
+        .trend-product {
+            float: left;
+            width: 16%;
+        }
+        .trend-wraper {
+            margin: 80px;
+        }
     </style>
 </head>
 <body>
