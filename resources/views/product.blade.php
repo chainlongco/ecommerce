@@ -15,13 +15,15 @@
                     </div>     
                     <div class="carousel-inner">     
                         @foreach ($products as $product)
-                        <div class="carousel-item {{ $product->id ==1?'active':''}}">
-                            <img src="{{ asset('/images/' . $product->gallery)}}" class="d-block w-100" alt="Image not available">
-                            <div class="carousel-caption d-none d-md-block">
-                                <h5>{{ $product->name }}</h5>
-                                <p>{{ $product->description }}</p>
-                            </div>
-                        </div>
+                            <a href="/detail/{{ $product->id }}">
+                                <div class="carousel-item {{ $product->id ==1?'active':''}}">
+                                    <img src="{{ asset('/images/' . $product->gallery)}}" class="d-block w-100" alt="Image not available">
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <h5>{{ $product->name }}</h5>
+                                        <p>{{ $product->description }}</p>
+                                    </div>
+                                </div>
+                            </a>
                         @endforeach   
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
@@ -43,12 +45,14 @@
             <h2>Trending Product</h2> 
         </div>
         @foreach ($products as $product)
-        <div class="trend-product">
-            <img src="{{ asset('/images/' . $product->gallery)}}" class="trend-img">
-            <div class="">
-                <h5>{{ $product->name }}</h5>
-            </div>
-        </div>
+            <a href="/detail/{{ $product->id }}">
+                <div class="trend-product">
+                    <img src="{{ asset('/images/' . $product->gallery)}}" class="trend-img">
+                    <div class="">
+                        <h5>{{ $product->name }}</h5>
+                    </div>
+                </div>
+            </a>
         @endforeach   
     </div>
 
