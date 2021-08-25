@@ -8,7 +8,7 @@
                     <img src="{{ asset('/images/' . $product->gallery) }}">
                 </div>
                 <div class="col-md-6 ">
-                    <a href="/product">Go Back</a>
+                    <a href="/products">Go Back to Products</a>
                     <br>
                     <h5>
                         Name: {{ $product->name }}

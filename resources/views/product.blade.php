@@ -14,17 +14,16 @@
                         @endforeach
                     </div>     
                     <div class="carousel-inner">     
-                        @foreach ($products as $product)
-                            
-                                <div class="carousel-item {{ $product->id ==1?'active':''}}">
-                                    <a href="/detail/{{ $product->id }}">
-                                        <img src="{{ asset('/images/' . $product->gallery)}}" class="d-block w-100" alt="Image not available">
-                                    </a>
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <h5>{{ $product->name }}</h5>
-                                        <p>{{ $product->description }}</p>
-                                    </div>
+                        @foreach ($products as $product)    
+                            <div class="carousel-item {{ $product->id ==1?'active':''}}">
+                                <a href="/detail/{{ $product->id }}">
+                                    <img src="{{ asset('/images/' . $product->gallery)}}" class="d-block w-100" alt="Image not available">
+                                </a>
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5>{{ $product->name }}</h5>
+                                    <p>{{ $product->description }}</p>
                                 </div>
+                            </div>
                         @endforeach   
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">

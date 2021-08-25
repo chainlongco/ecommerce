@@ -19,7 +19,7 @@ class UserAuth
 
         if (($request->path() == 'login') && ($request->session()->has('user')))
         {
-            return redirect("/product");
+            return redirect("/products");
         }
         return $next($request);
     }
