@@ -20,7 +20,7 @@
                         <br>
                         Category: {{ $product->category }}
                     </p>
-                    <button class="btn btn-primary">Add to Cart</button>
+                    <a href="/cart/{{ $product->id }}" class="btn btn-primary">Add to Cart</a>
                     <button class="btn btn-success">Checkout</button>
                 </div>
             </div>

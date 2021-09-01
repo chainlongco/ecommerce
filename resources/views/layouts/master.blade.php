@@ -10,6 +10,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
     <style>
         .footer-dark {
@@ -113,6 +114,17 @@
         }
         .trend-wraper {
             margin: 80px;
+        }
+
+        #cart_count{
+            text-align: center;
+            padding: 0 0.9rem 0.1rem 0.9rem;
+            border-radius: 3rem;
+            border-style: solid;
+        }
+
+        .shopping-cart{
+            padding: 3% 0;
         }
     </style>
 </head>

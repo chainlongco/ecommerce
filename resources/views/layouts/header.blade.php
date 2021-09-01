@@ -27,10 +27,41 @@
             <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
           </li>
         </ul>
-        <form class="d-flex" action="/search" method="GET">
-          <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <div class="collapse navbar-collapse">
+          <form class="d-flex" action="/search" method="GET">
+            <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </div>
+        <div  id="navbarNavAltMarkup">
+          <div class="mr-auto"></div>
+          <div class="navbar-nav">
+            <a href="/cart" class="nav-item nav-link active">
+              <h5 class="px-5 cart">
+                <i class="fas fa-shopping-cart"></i>Cart
+                
+                <?php
+                  if (Session::has('cart')) {
+                    $count = 0;
+                    foreach (Session::get('cart') as $products){
+                        foreach($products as $key=>$value) {
+                            if ($key == "quantity") {
+                                $count = $count + (int)$value;
+                                break;
+                            }
+                        }
+                    }
+                    //echo "<span id=\"cart_count\" class=\"text-warning bg-light\">" .count(Session::get('cart')) ."</span>";
+                    echo "<span id=\"cart_count\" class=\"text-warning bg-light\">" .$count ."</span>";
+                  } else {
+                    echo "<span id=\"cart_count\" class=\"text-warning bg-light\">0</span>";
+                  }
+                ?>
+
+              </h5>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
