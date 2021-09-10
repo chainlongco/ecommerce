@@ -35,52 +35,57 @@
 
 <script>
     $(document).ready(function(){
-        $('#quantityPlus').click(function(){
-            var value = $("#quantity").val();
-            value = Number(value) + 1;
-            $("#quantity").val(value);
-            fetchPriceDetail();
-            setTimeout(fetchCartCount, 300);  // Needs to delay to execute to wait for Session quantity to be set
+        $('.quantityPlus').click(function(){
+            var productId = retrieveProductId("quantityPlus", this.id);
+            var quantityElementId = "#quantity" + productId;
+            var quantity = $(quantityElementId).val();
+            quantity = Number(quantity) + 1;
+            $(quantityElementId).val(quantity);
+            fetchPriceDetail(productId, quantity);
+            setTimeout(fetchCartCount, 500, productId, quantity);  // Needs to delay to execute to wait for Session quantity to be set
         });
 
-        $('#quantityMinus').click(function(){
-            var value = $("#quantity").val();
-            value = Number(value) - 1;
-            if (value == 0) {
+        $('.quantityMinus').click(function(){
+            var productId = retrieveProductId("quantityMinus", this.id);
+            var quantityElementId = "#quantity" + productId;
+            var quantity = $(quantityElementId).val();
+            quantity = Number(quantity) - 1;
+            if (quantity == 0) {
                 if (confirm('Are you sure to remove this item?')) {   
-                    $("#quantity").val(value);
+                    $(quantityElementId).val(quantity);
                     
-                    fetchOrderListForRemove();
-                    fetchPriceDetail();
-                    setTimeout(fetchCartCount, 300);  // Needs to delay to execute to wait for Session quantity to be set
+                    fetchOrderListForRemove(productId);
+                    fetchPriceDetail(productId, quantity);
+                    setTimeout(fetchCartCount, 500, productId, quantity);  // Needs to delay to execute to wait for Session quantity to be set
                 } else {
-                    $("#quantity").val(Number(value)+1);
+                    $(quantityElementId).val(Number(quantity)+1);
                 }
             } else {
-                $("#quantity").val(value);
-                fetchPriceDetail();
-                setTimeout(fetchCartCount, 300);  // Needs to delay to execute to wait for Session quantity to be set
+                $(quantityElementId).val(quantity);
+                fetchPriceDetail(productId, quantity);
+                setTimeout(fetchCartCount, 500, productId, quantity);  // Needs to delay to execute to wait for Session quantity to be set
             }
         });
 
-        $('#remove').click(function(){
-            fetchOrderListForRemove();
-            fetchPriceDetailForRemoveButton();
-            setTimeout(fetchCartCount, 300);  // Needs to delay to execute to wait for Session quantity to be set
+        $('.remove').click(function(){
+            var productId = retrieveProductId("remove", this.id);
+            fetchOrderListForRemove(productId);
+            fetchPriceDetail(productId, 0);
+            setTimeout(fetchCartCount, 500, productId, 0);  // Needs to delay to execute to wait for Session quantity to be set
         });
 
         
-        $('#quantity').change(function(){
+        $('.quantity').change(function(){
             alert("go");
         });
         
-        function fetchPriceDetail() 
+        function fetchPriceDetail(productId, quantity) 
         {
-            var value = $("#quantity").val();
+            var value = quantity;
             $.ajax({
                 type: 'GET',
                 url: '/cart-price',
-                data: {'id': 1, 'quantity': value},
+                data: {'id': productId, 'quantity': value},
                 success: function(response) {
                     console.log(response);
                     $('#pricedetail').html(response);
@@ -88,26 +93,12 @@
             });
         }
 
-        function fetchPriceDetailForRemoveButton() 
-        {
-            var value = 0;
-            $.ajax({
-                type: 'GET',
-                url: '/cart-price',
-                data: {'id': 1, 'quantity': value},
-                success: function(response) {
-                    console.log(response);
-                    $('#pricedetail').html(response);
-                }
-            });
-        }
-
-        function fetchOrderListForRemove()
+        function fetchOrderListForRemove(productId)
         {
             $.ajax({
                 type: 'GET',
                 url: '/cart-order',
-                data: {'id': 1},
+                data: {'id': productId},
                 success: function(response) {
                     console.log(response);
                     $('#orderlist').html(response);
@@ -115,18 +106,26 @@
             });
         }
 
-        function fetchCartCount()
+        function fetchCartCount(productId, quantity)
         {
-            var value = $("#quantity").val();
             $.ajax({
                 type: 'GET',
                 url: '/cart-count',
-                data: {'id': 1, 'quantity': value},
+                data: {'id': productId, 'quantity': quantity},
                 success: function(response) {
-                    console.log(response);
+                    console.log(response);      
                     $('#cartcount').html(response);
                 }
             });
+        }
+
+        function retrieveProductId(elementClass, elementClassId)
+        {
+            var lengthClass = elementClass.length;
+            var lengthClassId = elementClassId.length;
+            var productId = elementClassId.substr(lengthClass, (lengthClassId-lengthClass));
+
+            return productId;
         }
     });
 

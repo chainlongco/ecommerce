@@ -43,7 +43,7 @@ class ProductController extends Controller
             foreach(Session::get('cart') as $products) {
                 $quantity = 0;
                 foreach($products as $key=>$value) {
-                    if ($value == $id) {
+                    if ($key == 'productId' && $value == $id) {
                         $productIdExists = true;
                     }
                 }

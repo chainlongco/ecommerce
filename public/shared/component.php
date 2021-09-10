@@ -58,14 +58,14 @@
                             <h5 class=\"pt-1\">$" .$product->price ."</h5>
                             <div class=\"pb-1\">
                                 <button type=\"submit\" class=\"btn btn-warning\">Save for Later</button>
-                                <button type=\"button\" class=\"btn btn-danger mx-2\" name=\"remove\" id=\"remove\">Remove</button>
+                                <button type=\"button\" class=\"btn btn-danger mx-2 remove\" id=\"remove" .$product->id ."\">Remove</button>
                             </div>
                         </div>
                         <div class=\"col-md-3\">
                             <div class=\"py-5\">
-                                <button type=\"button\" class=\"btn bg-light border rounded-circle\" id=\"quantityMinus\"><i class=\"fas fa-minus\"></i></button>
-                                <input type=\"text\" class=\"form-control w-25 d-inline\" value=\"" .$quantity ."\" id=\"quantity\">
-                                <button type=\"button\" class=\"btn bg-light border rounded-circle\" id=\"quantityPlus\"><i class=\"fas fa-plus\"></i></button>
+                                <button type=\"button\" class=\"btn bg-light border rounded-circle quantityMinus\" id=\"quantityMinus" .$product->id ."\"><i class=\"fas fa-minus\"></i></button>
+                                <input type=\"text\" class=\"form-control w-25 d-inline\" value=\"" .$quantity ."\" id=\"quantity" .$product->id ."\">
+                                <button type=\"button\" class=\"btn bg-light border rounded-circle quantityPlus\" id=\"quantityPlus" .$product->id ."\"><i class=\"fas fa-plus\"></i></button>
                             </div>
                         </div>
                     </div>
@@ -128,7 +128,5 @@
         }
         $priceDetail = array('items'=>$items, 'subtotal'=>number_format($subtotal, 2, '.', ','), 'tax'=>number_format($tax, 2, '.', ','), 'total'=>number_format($total, 2, '.', ','));
         return $priceDetail;
-    }
-
-    
+    }  
 ?>
