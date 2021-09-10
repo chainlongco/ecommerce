@@ -12,6 +12,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
+    <link href={{ asset('css/jquery.nice-number.css') }} rel="stylesheet">
+	<script src={{ asset('js/jquery.nice-number.js') }}></script>
+
     <style>
         .footer-dark {
             padding:50px 0;
@@ -116,16 +119,31 @@
             margin: 80px;
         }
 
-        #cart_count{
+        #cart_count {
             text-align: center;
             padding: 0 0.9rem 0.1rem 0.9rem;
             border-radius: 3rem;
             border-style: solid;
         }
 
-        .shopping-cart{
-            padding: 3% 0;
+        .box input {
+            border:1px solid gray;
+            outline: none;
+            padding: 6px 10px;
+            border-radius: 5px;
+            margin: 0 5px !important;
         }
+        .box button {
+            background-color: #e6e6e6;
+            color: black;
+            font-size: 20px;
+            font-weight: 900;
+            border: 1px solid gray;
+            outline: none;
+            padding: 8px 16px;
+            border-radius: 50%;
+        }
+        
     </style>
 </head>
 <body>
