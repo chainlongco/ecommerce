@@ -1,7 +1,5 @@
-@extends('layouts.master')
-@section('title', 'ECommerce')
-@section('content')
-<br>
+
+{{ $errors }}
 @if($errors->any())
     error?
     <div class="alert alert-danger" role="alert">
@@ -30,7 +28,6 @@ no error?
 @else
     no errors 2
 @endif
-
 <div class="container">
     <div class="row">
         <div class="col-md-6 offset-md-3">
@@ -39,11 +36,11 @@ no error?
                     <h3>Log in</h3>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="login">
+                    <form method="POST" action="login2">
                         @csrf
                         <div class="mb-3">
                             <label for="email" class="form-label">Email address</label>
-                            <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+                            <input type="text" class="form-control" name="email" id="email" aria-describedby="emailHelp">
                             <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
                         </div>
                         <div class="mb-3">
@@ -61,7 +58,3 @@ no error?
         </div>
     </div>            
 </div>
-
-
-<br>
-@endsection

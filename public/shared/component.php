@@ -1,5 +1,35 @@
 <?php
     use App\Models\Product;
+    use Illuminate\Http\Request;
+
+    function updateSessionData(Request $request)
+    {
+        $id = $request->input('id');
+        $quantity = $request->input('quantity');
+        $productsArray = Session::get('cart');
+        foreach($productsArray as $key=>$value){
+            if($productsArray[$key]['productId'] == $id) {
+                if ($quantity != 0) {
+                    Session::pull('cart.' .$key);
+                    Session::push('cart', array('productId'=>$id, 'quantity'=>(int)$quantity));
+                } else {
+                    Session::forget('cart.' .$key);
+                }
+            } else {
+                //print_r("not inside");
+            }
+        }
+    }
+
+    function retrieveIdListFromSession()
+    {
+        $idArray = [];
+        $productsArray = Session::get('cart');
+        foreach($productsArray as $key=>$value){
+            array_push($idArray, $productsArray[$key]['productId']);
+        }
+        return $idArray;
+    }
 
     function cartCountSpanElement()
     {
@@ -53,7 +83,7 @@
                                       
                         </div>
                         <div class=\"col-md-6\">
-                            <h5 class=\"pt-2\">" .$product->name ."</h3>
+                            <h5 class=\"pt-2\">" .$product->name ."</h5>
                             <small class=\"text-secondary\">" .$product->description ."</small>
                             <h5 class=\"pt-1\">$" .$product->price ."</h5>
                             <div class=\"pb-1\">
@@ -128,5 +158,6 @@
         }
         $priceDetail = array('items'=>$items, 'subtotal'=>number_format($subtotal, 2, '.', ','), 'tax'=>number_format($tax, 2, '.', ','), 'total'=>number_format($total, 2, '.', ','));
         return $priceDetail;
-    }  
+    } 
+
 ?>

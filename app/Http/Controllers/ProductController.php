@@ -11,6 +11,11 @@ class ProductController extends Controller
 {
     public function index()
     {
+        /*if (Session::has('user')){
+            print_r(Session::get('user'));
+        } else {
+            print_r("not set");
+        }*/
         $products = Product::all();
         return view('product', ['products'=>$products]);
     }
@@ -72,6 +77,61 @@ class ProductController extends Controller
         return view('cart');
     }
 
+    public function cartData(Request $request)
+    {
+        updateSessionData($request);
+        
+        $idArray = retrieveIdListFromSession();
+        $products = Product::wherein('id', $idArray)->get();
+        $productArray = array();
+        $priceArray = array();
+
+        $items = 0;
+        $tax = 0;
+        $subtotal = 0;
+        $total = 0;
+        $taxRate = 0.0825;
+
+        foreach($products as $product) {
+            $quantity = 0;
+            $note = "";
+            $data = Session::get('cart');
+            foreach($data as $key=>$value) {             
+                if ($data[$key]['productId'] == ($product->id)) {
+                    $quantity = $data[$key]['quantity'];
+                    break;
+                }       
+            }
+            $array = array(
+                'id'=>$product->id,
+                'name'=>$product->name,
+                'price'=>$product->price,
+                'category'=>$product->category,
+                'description'=>$product->description,
+                'gallery'=>$product->gallery,
+                'quantity'=>$quantity,
+                'note'=>$note,
+            );
+
+            $items += $quantity;
+            $subtotal += (floatval($product->price)) * $quantity;
+
+            array_push($productArray, $array);
+        }
+        $tax = round(($subtotal * $taxRate), 2);
+        $total = $subtotal + $tax;
+        $priceArray = array('items'=>$items, 'subtotal'=>number_format($subtotal, 2, '.', ','), 'tax'=>number_format($tax, 2, '.', ','), 'total'=>number_format($total, 2, '.', ','));
+
+        return response()->json([
+            'products' => $productArray,
+            'price' => $priceArray,
+        ]);
+    }
+
+
+
+
+
     public function cartPriceDetail(Request $request)
     {
         //print_r($request->input('quantity'));
@@ -122,8 +182,6 @@ class ProductController extends Controller
             }
         }
         echo cartCountSpanElement();
-        //print_r($count);
-        //print_r($request->input('quantity'));
     }
 
 }
