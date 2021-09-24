@@ -29,7 +29,7 @@ Route::get('/register', function(){
 });
 Route::post('/register', [UserController::class, 'register'])->name('register-submit');
 
-Route::post('/login', [UserController::class, 'login']);
+Route::post('/login', [UserController::class, 'login'])->name('login-submit');
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/detail/{id}', [ProductController::class, 'detail']);
 Route::get('/search', [ProductController::class, 'search']);
